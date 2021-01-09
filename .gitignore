@@ -1,6 +1,9 @@
 *.in
 Makefile
+automake
 *.pyc
+*.term
+*.info
 .DS_Store
 aclocal.m4
 ltmain.sh
