@@ -3,8 +3,8 @@
  * Copyright (c) 2002-2021, Dr T L Turocy (ted.turocy@gmail.com)
  *                          Chadwick Baseball Bureau (http://www.chadwick-bureau.com)
  *
- * FILE: src/cwlib/file.h
- * Declaration of convenience routines for reading/writing scorebook files
+ * FILE: src/cwlib/gameiter.c
+ * Implementation of routines to store game state
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,31 +21,18 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef CW_FILE_H
-#define CW_FILE_H
+/* This macro is a convenient shorthand for free()ing and NULLing a pointer
+ * if it's not currently NULL. */
+#define XFREE(var)    if (var) { free((var)); (var) = NULL; }
 
-/*
- * A replacement for C strtok(), using commas as the token separator,
- * and respecting quoted fields
- */
-char *cw_strtok(char *strToken);
+/* This macro is a convenient shortland for malloc()ing and copying a
+ * pointer to a string, if it's not currently NULL */
+#define XCOPY(dest, src) \
+  if (src) {  \
+    dest = (char *) malloc(sizeof(char) * (strlen(src) + 1)); \
+    strcpy(dest, src); \
+  } \
+  else { \
+    dest = NULL; \
+  }
 
-/*
- * A replacement for C atoi(), which does validity checking and returns
- * -1 as the "null" value for invalid inputs.
- */
-int cw_atoi(char *s);
-
-/*
- * Searches for the game 'game_id' in 'file'; sets the file pointer to
- * the first record of the game, if present.
- * Returns nonzero if the game is found.
- */
-int cw_file_find_game(char *game_id, FILE *file);
-
-/*
- * Finds the first game record in 'file'.
- */
-int cw_file_find_first_game(FILE *file);
-
-#endif  /* CW_FILE_H */

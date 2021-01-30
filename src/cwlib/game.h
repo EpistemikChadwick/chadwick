@@ -1,6 +1,6 @@
 /*
  * This file is part of Chadwick
- * Copyright (c) 2002-2020, Dr T L Turocy (ted.turocy@gmail.com)
+ * Copyright (c) 2002-2021, Dr T L Turocy (ted.turocy@gmail.com)
  *                          Chadwick Baseball Bureau (http://www.chadwick-bureau.com)
  *
  * FILE: src/cwlib/game.h
@@ -55,6 +55,12 @@ typedef struct cw_appearance_struct {
 
 typedef struct cw_comment_struct {
   char *text;
+  struct {
+    char *person_id, *person_role, *umpire_id, *reason;
+  } ejection;
+  struct {
+    char *inning, *position, *person_id;
+  } umpchange;
   struct cw_comment_struct *prev, *next;
 } CWComment;
 
